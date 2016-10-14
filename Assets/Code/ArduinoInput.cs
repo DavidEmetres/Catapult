@@ -26,6 +26,10 @@ public class ArduinoInput : MonoBehaviour{
 		readThread.Start ();
 	}
 
+	void Update() {
+		Debug.Log (button1 + ", " + button2 + ", " + button3 + ", " + button4);
+	}
+
 	void OnApplicationQuit() {
 		threadRunning = false;
 	}
