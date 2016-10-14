@@ -37,23 +37,36 @@ public class ArduinoInput : MonoBehaviour{
 				string[] b = a.Split (',');
 
 				if (b [0] == "TRUE")
-					button1 = true;
+                {
+                    Debug.Log("button1");
+                    button1 = true;
+                }
+
 				else
 					button1 = false;
 
 				if (b [1] == "TRUE")
-					button2 = true;
-				else
+                {
+                    Debug.Log("button2");
+                    button2 = true;
+                }
+                else
 					button2 = false;
 
 				if (b [2] == "TRUE")
-					button3 = true;
-				else
+                {
+                    Debug.Log("button3");
+                    button3 = true;
+                }
+                else
 					button3 = false;
 
 				if (b [3] == "TRUE")
-					button4 = true;
-				else
+                {
+                    Debug.Log("button4");
+                    button4 = true;
+                }
+                else
 					button4 = false;
 			}
 		}
