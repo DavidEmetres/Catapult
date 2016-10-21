@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour {
 		transform.Translate (Vector3.forward * speed * Time.deltaTime);
 	}
 
-	void Die() {
+	public void Die() {
 		manager.EnemyIsDead ();
 		Destroy(this.gameObject);
 	}

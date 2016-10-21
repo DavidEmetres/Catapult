@@ -9,6 +9,7 @@ public class EnemyManager : MonoBehaviour {
 	float nextRespawnTime;
 	int counter;
 	int difficulty;
+	int score;
 
 	public float respawnDepth;
 	public float end;
@@ -28,6 +29,7 @@ public class EnemyManager : MonoBehaviour {
 
 	void Update () {
 		time += Time.deltaTime;
+		score = counter * 100;
 
 		if (time >= nextRespawnTime) {
 			RespawnEnemy ();
@@ -87,7 +89,7 @@ public class EnemyManager : MonoBehaviour {
 
 	void OnGUI() {
 		GUI.Label (new Rect (0, 0, 100, 100), "" + time);
-		GUI.Label (new Rect (100, 0, 100, 100), "" + counter);
+		GUI.Label (new Rect (100, 0, 100, 100), "" + score);
 		GUI.Label (new Rect (200, 0, 100, 100), "" + difficulty);
 	}
 }

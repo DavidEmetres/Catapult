@@ -19,15 +19,17 @@ public class ArduinoInput : MonoBehaviour{
 	void Start () {
 		string[] ports = SerialPort.GetPortNames ();
 
-		stream = new SerialPort(ports[0], 9600);
+		if (ports.Length > 0) {
+			stream = new SerialPort (ports [0], 9600);
 
-		stream.Open ();
-		readThread = new Thread (new ThreadStart(ReadInput));
-		readThread.Start ();
+			stream.Open ();
+			readThread = new Thread (new ThreadStart (ReadInput));
+			readThread.Start ();
+		}
 	}
 
 	void Update() {
-		Debug.Log (button1 + ", " + button2 + ", " + button3 + ", " + button4);
+		//Debug.Log (button1 + ", " + button2 + ", " + button3 + ", " + button4);
 	}
 
 	void OnApplicationQuit() {
