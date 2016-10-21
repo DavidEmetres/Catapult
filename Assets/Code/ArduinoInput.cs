@@ -19,6 +19,9 @@ public class ArduinoInput : MonoBehaviour{
 	void Start () {
 		string[] ports = SerialPort.GetPortNames ();
 
+        while (ports.Length == 0)
+            ports = SerialPort.GetPortNames();
+
 		stream = new SerialPort(ports[0], 9600);
 
 		stream.Open ();

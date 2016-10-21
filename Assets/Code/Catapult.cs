@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+
 
 public class Catapult : MonoBehaviour {
 
@@ -12,27 +14,44 @@ public class Catapult : MonoBehaviour {
 
     float firstTime = 0f;
     GameObject rock;
+    GameObject lanzadera;
+    Transform rockSpawn;
 
     public GameObject rockPrefab;
+    public ShotCat rockScript;
+
+    public Slider slider;
+    public Image recharge;
+    public Transform targetCanvas;
+    public Transform target;
+
+    Animator anim;
+    float force = 0;
+    float chargeAmount = 0;
+    public float maxDistance = -25.2f;
+    float forceIncrease = -0.01f;
 
     // Use this for initialization
     void Start () {
-        playerRigidbody = GetComponent<Rigidbody>();
+        playerRigidbody = transform.parent.GetComponent<Rigidbody>();
         initialRotation = playerRigidbody.rotation;
+        rockSpawn = GameObject.FindGameObjectWithTag("rockSpawn").transform;
+        anim = GetComponent<Animator>();
 
-        rock = Instantiate(rockPrefab, transform.position+new Vector3(0,0.5f,0), transform.rotation) as GameObject;
+        rock = Instantiate(rockPrefab, rockSpawn.position, transform.rotation) as GameObject;
+        rockScript = rock.GetComponent<ShotCat>();
+
 
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update () {
         if (firstTime != 0f)
         {
             //waiting for second button for shooting
 
             if (ArduinoInput.button1)
             {
-                Shoot(firstTime, Time.time);
                 firstTime = 0;
             }
 
@@ -53,11 +72,36 @@ public class Catapult : MonoBehaviour {
             }
             if (ArduinoInput.button2)
             {
-                firstTime = Time.time;
+                //firstTime = Time.time;
+                force += forceIncrease;
+                if (force > 1.1 || force<0)
+                {
+                    forceIncrease =forceIncrease* -1;
+                }
+                updateTarget();
+                slider.value = force;
+
             }
             if (ArduinoInput.button3)
             {
-                Recharge();
+                if (!rockScript.thrown && rock != null)
+                {
+                    Shoot(force);
+                    
+                    //rock = null;
+                }
+                else if(/*rock == null &&*/ chargeAmount >= 1)
+                {
+                    Recharge();
+                }
+                else if(rockScript.thrown)
+                {
+                    chargeAmount += 0.02f;
+                    if (chargeAmount > 1)
+                        chargeAmount = 1;
+                    recharge.fillAmount = chargeAmount;
+                }
+                
             }
 
             Turn();
@@ -66,38 +110,41 @@ public class Catapult : MonoBehaviour {
 
 
     }
+    void updateTarget()
+    {
+        Vector3 newPos = new Vector3(0, -0.5f, maxDistance * force);
+        targetCanvas.localPosition = newPos;
+    }
     void Recharge()
     {
-        Destroy(rock);
-        rock = Instantiate(rockPrefab, transform.position + new Vector3(0, 2f, 0), transform.rotation) as GameObject;
+        chargeAmount = 0;
+
+        Destroy(rock.gameObject);
+        rock = Instantiate(rockPrefab, rockSpawn.position, transform.rotation) as GameObject;
+        rockScript = rock.GetComponent<ShotCat>();
+        force = 0;
+        slider.value = force;
+        updateTarget();
+
+
+
     }
-    void Shoot(float firstTime, float timeNow)
+    void Shoot(float force)
     {
-        float elapsedTime = timeNow - firstTime;
-        Debug.Log("Elapsed time: " + elapsedTime);
-        float force;
 
-        if (elapsedTime < 0.3f)
+        if (!rockScript.thrown && force!=0)
         {
-            force = 3;
-        }
-        else if(elapsedTime < 0.6f)
-        {
-            force = 2f;
-        }
-        else
-        {
-            force = 1;
+            rockScript.thrown = true;
+            force += 0.5f;
+            rock.GetComponent<Rigidbody>().AddRelativeForce(Vector3.back*5*force, ForceMode.Impulse);
+            rock.GetComponent<Rigidbody>().AddRelativeForce(Vector3.up * 15*force, ForceMode.Impulse);
+            anim.SetTrigger("throw");
+            force = 0;
+            slider.value = force;
+            updateTarget();
+
         }
 
-        if (elapsedTime < 6)
-        {
-            Vector3 vectorForce = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
-            vectorForce.Normalize();
-            rock.GetComponent<Rigidbody>().AddRelativeForce(Vector3.forward * force*100);
-            rock.GetComponent<Rigidbody>().AddForce(new Vector3(0,force*100, 0));
-        }
-        
 
     }
     void Turn()
@@ -107,14 +154,15 @@ public class Catapult : MonoBehaviour {
 
         // Apply this rotation to the rigidbody's rotation
         angle = Quaternion.Angle(initialRotation, playerRigidbody.rotation);
-        if (transform.eulerAngles.y > 180)
+        if (transform.eulerAngles.y < 180)
         {
-            if (transform.eulerAngles.y > 360 - maxAngle && turnInputValue < 0)
+            if (transform.eulerAngles.y > 180 - maxAngle && turnInputValue < 0)
             {
+
                 playerRigidbody.MoveRotation(playerRigidbody.rotation * turnRotation);
-                if (transform.eulerAngles.y < 360 - maxAngle)
+                if (transform.eulerAngles.y < 180 - maxAngle)
                 {
-                    transform.rotation = Quaternion.Euler(0f, -maxAngle, 0f);
+                    transform.rotation = Quaternion.Euler(0f, 180-maxAngle, 0f);
                 }
 
             }
@@ -125,10 +173,10 @@ public class Catapult : MonoBehaviour {
         }
         else
         {
-            if (transform.eulerAngles.y < maxAngle && turnInputValue > 0)
+            if (transform.eulerAngles.y < 180 + maxAngle && turnInputValue > 0)
             {
                 playerRigidbody.MoveRotation(playerRigidbody.rotation * turnRotation);
-                if (transform.eulerAngles.y > maxAngle)
+                if (transform.eulerAngles.y>180 +maxAngle)
                 {
                     transform.rotation = Quaternion.Euler(0f, maxAngle, 0f);
                 }
