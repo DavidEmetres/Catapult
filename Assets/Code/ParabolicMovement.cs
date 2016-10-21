@@ -31,7 +31,10 @@ public class ParabolicMovement : MonoBehaviour {
 			x = vox * t;
 			y = yo + voy * t - (4.9f * Mathf.Pow (t, 2));
 
-			transform.position = new Vector3 (transform.position.x, y, x);
+			transform.position = new Vector3 (x * Mathf.Cos(transform.eulerAngles.y + 270f), y, x * Mathf.Abs(Mathf.Sin(transform.eulerAngles.y + 270f)));
+			//transform.localPosition = new Vector3 (transform.localPosition.x, y, x);
 		}
+
+		Debug.Log (xf);
 	}
 }

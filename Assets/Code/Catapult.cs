@@ -135,9 +135,11 @@ public class Catapult : MonoBehaviour {
         if (!rockScript.thrown && force!=0)
         {
             rockScript.thrown = true;
-            force += 0.5f;
+            /*force += 0.5f;
             rock.GetComponent<Rigidbody>().AddRelativeForce(Vector3.back*5*force, ForceMode.Impulse);
-            rock.GetComponent<Rigidbody>().AddRelativeForce(Vector3.up * 15*force, ForceMode.Impulse);
+            rock.GetComponent<Rigidbody>().AddRelativeForce(Vector3.up * 15*force, ForceMode.Impulse);*/
+			rock.GetComponent<ParabolicMovement> ().xf = Vector3.Distance (rock.transform.position, target.transform.position);
+			rock.GetComponent<ParabolicMovement> ().enabled = true;
             anim.SetTrigger("throw");
             force = 0;
             slider.value = force;
