@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class Catapult : MonoBehaviour {
 
+    ThrowSimulation throwScript;
+
     float turnInputValue = 0;
     public float maxAngle = 40;
     Quaternion initialRotation;
@@ -13,7 +15,7 @@ public class Catapult : MonoBehaviour {
     float angle;
 
     float firstTime = 0f;
-    GameObject rock;
+    public GameObject rock;
     GameObject lanzadera;
     Transform rockSpawn;
 
@@ -41,12 +43,14 @@ public class Catapult : MonoBehaviour {
         rock = Instantiate(rockPrefab, rockSpawn.position, transform.rotation) as GameObject;
         rockScript = rock.GetComponent<ShotCat>();
 
+        throwScript = GetComponent<ThrowSimulation>();
+
 
     }
 
     // Update is called once per frame
     void Update () {
-        if (firstTime != 0f)
+        /*if (firstTime != 0f)
         {
             //waiting for second button for shooting
 
@@ -57,20 +61,20 @@ public class Catapult : MonoBehaviour {
 
         }
         else
-        {
-            if (ArduinoInput.button4)
+        {*/
+            if (/*ArduinoInput.button4*/Input.GetKey("a"))
             {
                 turnInputValue = -1f;
             }
-            if (ArduinoInput.button1)
+            if (/*ArduinoInput.button1*/Input.GetKey("d"))
             {
                 turnInputValue = 1f;
             }
-            if (!ArduinoInput.button1 && !ArduinoInput.button4)
+            if (/*!ArduinoInput.button1 && !ArduinoInput.button4*/!Input.GetKey("a") && !Input.GetKey("d"))
             {
                 turnInputValue = 0f;
             }
-            if (ArduinoInput.button2)
+            if (/*ArduinoInput.button2*/Input.GetKey("f"))
             {
                 //firstTime = Time.time;
                 force += forceIncrease;
@@ -82,10 +86,11 @@ public class Catapult : MonoBehaviour {
                 slider.value = force;
 
             }
-            if (ArduinoInput.button3)
+            if (/*ArduinoInput.button3*/Input.GetKey("t"))
             {
                 if (!rockScript.thrown && rock != null)
                 {
+                
                     Shoot(force);
                     
                     //rock = null;
@@ -105,26 +110,28 @@ public class Catapult : MonoBehaviour {
             }
 
             Turn();
-        }
+        //}
         
 
 
     }
     void updateTarget()
     {
-        Vector3 newPos = new Vector3(0, -0.5f, maxDistance * force);
+        Vector3 newPos = new Vector3(0, -1.9f, maxDistance * force-6);
         targetCanvas.localPosition = newPos;
     }
     void Recharge()
     {
         chargeAmount = 0;
+        //throwScript.enabled = false;
 
         Destroy(rock.gameObject);
         rock = Instantiate(rockPrefab, rockSpawn.position, transform.rotation) as GameObject;
         rockScript = rock.GetComponent<ShotCat>();
-        force = 0;
-        slider.value = force;
-        updateTarget();
+
+        //force = 0;
+        //slider.value = force;
+        //updateTarget();
 
 
 
@@ -135,9 +142,8 @@ public class Catapult : MonoBehaviour {
         if (!rockScript.thrown && force!=0)
         {
             rockScript.thrown = true;
-            force += 0.5f;
-            rock.GetComponent<Rigidbody>().AddRelativeForce(Vector3.back*5*force, ForceMode.Impulse);
-            rock.GetComponent<Rigidbody>().AddRelativeForce(Vector3.up * 15*force, ForceMode.Impulse);
+            throwScript.Shoot();
+
             anim.SetTrigger("throw");
             force = 0;
             slider.value = force;
