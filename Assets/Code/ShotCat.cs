@@ -19,7 +19,7 @@ public class ShotCat : MonoBehaviour {
     void Update () {
         if (!thrown)
         {
-            transform.rotation = catapult.transform.rotation;
+            transform.rotation = Quaternion.Inverse(catapult.transform.rotation);
             transform.position = rockSpawn.position;
         }
         
