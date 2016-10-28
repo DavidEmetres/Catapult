@@ -19,14 +19,17 @@ public class ArduinoInput : MonoBehaviour{
 	void Start () {
 		string[] ports = SerialPort.GetPortNames ();
 
-        while (ports.Length == 0)
-            ports = SerialPort.GetPortNames();
+		if (ports.Length > 0) {
+			stream = new SerialPort (ports [0], 9600);
 
-		stream = new SerialPort(ports[0], 9600);
+			stream.Open ();
+			readThread = new Thread (new ThreadStart (ReadInput));
+			readThread.Start ();
+		}
+	}
 
-		stream.Open ();
-		readThread = new Thread (new ThreadStart(ReadInput));
-		readThread.Start ();
+	void Update() {
+		//Debug.Log (button1 + ", " + button2 + ", " + button3 + ", " + button4);
 	}
 
 	void OnApplicationQuit() {
@@ -40,36 +43,23 @@ public class ArduinoInput : MonoBehaviour{
 				string[] b = a.Split (',');
 
 				if (b [0] == "TRUE")
-                {
-                    Debug.Log("button1");
-                    button1 = true;
-                }
-
+					button1 = true;
 				else
 					button1 = false;
 
 				if (b [1] == "TRUE")
-                {
-                    Debug.Log("button2");
-                    button2 = true;
-                }
-                else
+					button2 = true;
+				else
 					button2 = false;
 
 				if (b [2] == "TRUE")
-                {
-                    Debug.Log("button3");
-                    button3 = true;
-                }
-                else
+					button3 = true;
+				else
 					button3 = false;
 
 				if (b [3] == "TRUE")
-                {
-                    Debug.Log("button4");
-                    button4 = true;
-                }
-                else
+					button4 = true;
+				else
 					button4 = false;
 			}
 		}
