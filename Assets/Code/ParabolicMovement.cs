@@ -6,35 +6,53 @@ public class ParabolicMovement : MonoBehaviour {
 	float tf;
 	float yo;
 	float vo;
-	float vox;
+	float voz;
 	float voy;
+	float vox;
 	float t = 0f;
-	float x;
+	float z;
 	float y;
+	float x;
+	float xo;
+	float zo;
+	Vector3 direction;
+	Vector3 unitDirection;
 
-	public float xf = 30f;
+	public float zf;
+	public float xf;
 	public float angle = 30f;
+	public bool shooted = false;
 
 	void Start () {
-		angle = Mathf.Deg2Rad * angle;
-		yo = transform.position.y;
-		tf = Mathf.Sqrt ((yo + xf * Mathf.Tan(angle)) / 4.9f);
-		vo = xf / (Mathf.Cos (angle) * tf);
-		vox = vo * Mathf.Cos(angle);
-		voy = vo * Mathf.Sin (angle);
+
 	}
 
 	void Update () {
-		if (t <= tf) {
-			t += Time.deltaTime;
+		if (Input.GetKeyDown (KeyCode.F1))
+			Shoot ();
 
-			x = vox * t;
-			y = yo + voy * t - (4.9f * Mathf.Pow (t, 2));
+		if (shooted) {
+			if (t <= tf) {
+				t += Time.deltaTime;
 
-			transform.position = new Vector3 (x * Mathf.Cos(transform.eulerAngles.y + 270f), y, x * Mathf.Abs(Mathf.Sin(transform.eulerAngles.y + 270f)));
-			//transform.localPosition = new Vector3 (transform.localPosition.x, y, x);
+				z = zo + voz * t;
+				//x = xo + voz * t;
+				y = yo + voy * t - (4.9f * Mathf.Pow (t, 2));
+
+				transform.position = new Vector3 (transform.position.x, y, z);
+			}
 		}
+	}
 
-		Debug.Log (xf);
+	public void Shoot() {
+		angle = Mathf.Deg2Rad * angle;
+		yo = transform.position.y;
+		xo = transform.position.x;
+		zo = transform.position.z;
+		tf = Mathf.Sqrt ((yo + xf * Mathf.Tan(angle)) / 4.9f);
+		vo = xf / (Mathf.Cos (angle) * tf);
+		voz = vo * Mathf.Cos(angle);
+		voy = vo * Mathf.Sin (angle);
+		shooted = true;
 	}
 }

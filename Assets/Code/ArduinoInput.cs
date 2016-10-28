@@ -33,6 +33,7 @@ public class ArduinoInput : MonoBehaviour{
 	}
 
 	void OnApplicationQuit() {
+		stream.Close ();
 		threadRunning = false;
 	}
 
