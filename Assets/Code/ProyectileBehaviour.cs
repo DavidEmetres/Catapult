@@ -5,6 +5,7 @@ using System.Collections.Generic;
 public class ProyectileBehaviour : MonoBehaviour {
 
 	List<GameObject> enemiesInRange = new List<GameObject>();
+	[SerializeField] GameObject catExplosion;
 
 	void Start () {
 	
@@ -12,6 +13,7 @@ public class ProyectileBehaviour : MonoBehaviour {
 	
 	void Update () {
 		if (transform.position.y <= 0f) {
+			Instantiate (catExplosion, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity);
 			Explosion ();
 		}
 	}
@@ -23,6 +25,8 @@ public class ProyectileBehaviour : MonoBehaviour {
 			}
 			enemiesInRange.Clear ();
 		}
+
+		Destroy (this.gameObject);
 	}
 
 	void OnTriggerEnter(Collider other) {
