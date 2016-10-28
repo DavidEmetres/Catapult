@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour {
 	void Update() {
 		Move ();
 
-		if (this.transform.position.z >= end)
+		if (this.transform.position.z == end)
 			Die ();
 	}
 

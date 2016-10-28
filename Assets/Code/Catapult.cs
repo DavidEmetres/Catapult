@@ -11,8 +11,7 @@ public class Catapult : MonoBehaviour {
     public float maxAngle = 40;
     public float turnSpeed = 180f;
     Rigidbody playerRigidbody;
-
-
+	//TridimensionalParabolic parabolicMov;
 
     public GameObject rock;
     GameObject lanzadera;
@@ -39,6 +38,7 @@ public class Catapult : MonoBehaviour {
 
         rock = Instantiate(rockPrefab, rockSpawn.position, transform.rotation) as GameObject;
         rockScript = rock.GetComponent<ShotCat>();
+		//parabolicMov = rock.GetComponent<TridimensionalParabolic> ();
 
         throwScript = GetComponent<ThrowSimulation>();
 
@@ -74,27 +74,27 @@ public class Catapult : MonoBehaviour {
         }
         if (ArduinoInput.button3/*Input.GetKey("t")*/)
         {
-            if (!rockScript.thrown && rock != null)
+			if (!rockScript.thrown && rock != null)
             {
                 
                 Shoot();
                     
                 //rock = null;
             }
-            else if(/*rock == null &&*/ chargeAmount >= 1)
-            {
-                Recharge();
-            }
-            else if(rockScript.thrown)
-            {
-                chargeAmount += 0.02f;
-                if (chargeAmount > 1)
-                    chargeAmount = 1;
-                recharge.fillAmount = chargeAmount;
-            }
+            
                 
         }
-
+		if(rock == null && chargeAmount >= 1)
+		{
+			Recharge();
+		}
+		if(rockScript.thrown)
+		{
+			chargeAmount += 0.01f;
+			if (chargeAmount > 1)
+				chargeAmount = 1;
+			recharge.fillAmount = chargeAmount;
+		}
         Turn();
         
 
@@ -107,26 +107,30 @@ public class Catapult : MonoBehaviour {
     }
     void Recharge()
     {
-        chargeAmount = 0;
+        
 
         //Destroy(rock.gameObject);
         rock = Instantiate(rockPrefab, rockSpawn.position, transform.rotation) as GameObject;
         rockScript = rock.GetComponent<ShotCat>();
+		//parabolicMov = rock.GetComponent<TridimensionalParabolic> ();
 
-        force = 0;
-        updateTarget();
+        //force = 0;
+        //updateTarget();
 
 
 
     }
     void Shoot()
     {
-
+		Debug.Log ("SHOOT");
         if (!rockScript.thrown && force!=0)
         {
+			chargeAmount = 0;
             rockScript.thrown = true;
-            throwScript.Shoot();
-
+            //throwScript.Shoot();
+			GetComponent<TridimensionalParabolic>().Projectile = rock.transform;
+			GetComponent<TridimensionalParabolic>().Target = target.transform;
+			GetComponent<TridimensionalParabolic> ().Shoot ();
             anim.SetTrigger("throw");
             //force = 0;
             //updateTarget();
