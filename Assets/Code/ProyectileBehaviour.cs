@@ -12,14 +12,14 @@ public class ProyectileBehaviour : MonoBehaviour {
 	}
 	
 	void Update () {
-		if (transform.position.y <= 0f) {
-			Instantiate (catExplosion, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity);
+		if (transform.position.y <= 0.5f) {
 			Explosion ();
 		}
 	}
 
 	void Explosion() {
 		if (enemiesInRange.Count > 0) {
+			Instantiate (catExplosion, new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), Quaternion.identity);
 			foreach (GameObject e in enemiesInRange) {
 				e.GetComponent<Enemy> ().Die ();
 			}
