@@ -9,7 +9,7 @@ public class ArduinoInput : MonoBehaviour{
 	SerialPort stream;
 	Thread readThread;
 	string value;
-	bool threadRunning = true;
+	bool threadRunning = false;
 
 	public static bool button1;
 	public static bool button2;
@@ -23,18 +23,53 @@ public class ArduinoInput : MonoBehaviour{
 			stream = new SerialPort (ports [0], 9600);
 
 			stream.Open ();
-			readThread = new Thread (new ThreadStart (ReadInput));
-			readThread.Start ();
+			stream.ReadTimeout = 1;
+
+			/*if (stream.IsOpen) {
+				threadRunning = true;
+				readThread = new Thread (new ThreadStart (ReadInput));
+				readThread.Start ();
+			}*/
 		}
 	}
 
 	void Update() {
-		//Debug.Log (button1 + ", " + button2 + ", " + button3 + ", " + button4);
+		if (stream != null) {
+			if (stream.IsOpen && !threadRunning) {
+				threadRunning = true;
+				readThread = new Thread (new ThreadStart (ReadInput));
+				readThread.Start ();
+			}
+		}
+
+		if (Input.GetKey (KeyCode.Alpha4))
+			button1 = true;
+		else
+			button1 = false;
+
+		if (Input.GetKey (KeyCode.Alpha3))
+			button2 = true;
+		else
+			button2 = false;
+
+		if (Input.GetKey (KeyCode.Alpha2))
+			button3 = true;
+		else
+			button3 = false;
+
+		if (Input.GetKey (KeyCode.Alpha1))
+			button4 = true;
+		else
+			button4 = false;
 	}
 
 	void OnApplicationQuit() {
-		stream.Close ();
-		threadRunning = false;
+		if (stream != null) {
+			if (stream.IsOpen) {
+				threadRunning = false;
+				stream.Close ();
+			}
+		}
 	}
 
 	private void ReadInput() {

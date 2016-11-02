@@ -35,9 +35,23 @@ public class SceneCreator : MonoBehaviour {
 
 		for (int i = 0; i < childCount; i++) {
 			DestroyImmediate (parent.GetChild (0).gameObject);
-
 		}
 
 		trees.Clear ();
+	}
+
+	public void RemoveOutsideCamera() {
+		Plane[] planes = GeometryUtility.CalculateFrustumPlanes(Camera.main);
+		List<int> outsideCamera = new List<int> ();
+		float childCount = parent.childCount;
+
+		for (int i = 0; i < childCount; i++) {
+			if (!GeometryUtility.TestPlanesAABB (planes, parent.GetChild (i).GetComponent<Collider> ().bounds))
+				outsideCamera.Add (i);
+		}
+
+		for (int i = 0; i < outsideCamera.Count; i++) {
+			DestroyImmediate (parent.GetChild (outsideCamera [i] - i).gameObject);
+		}
 	}
 }

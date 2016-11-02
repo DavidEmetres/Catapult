@@ -13,5 +13,8 @@ public class SceneCreatorEditor : Editor {
 
 		if (GUILayout.Button ("Remove Trees"))
 			myScript.RemoveTrees ();
+
+		if (GUILayout.Button ("Remove Outside Camera Trees"))
+			myScript.RemoveOutsideCamera ();
 	}
 }
