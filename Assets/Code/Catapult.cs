@@ -19,6 +19,8 @@ public class Catapult : MonoBehaviour {
 
     public GameObject rockPrefab;
     public ShotCat rockScript;
+	public Sprite thrownSprite;
+	SpriteRenderer rockSprite;
 
     public Image recharge;
     public Transform targetCanvas;
@@ -38,6 +40,8 @@ public class Catapult : MonoBehaviour {
 
         rock = Instantiate(rockPrefab, rockSpawn.position, transform.rotation) as GameObject;
         rockScript = rock.GetComponent<ShotCat>();
+		rockSprite = rock.GetComponentInChildren<SpriteRenderer> ();
+		rockSprite.GetComponent<Animator> ().SetTrigger ("charge");
 		//parabolicMov = rock.GetComponent<TridimensionalParabolic> ();
 
         throwScript = GetComponent<ThrowSimulation>();
@@ -102,7 +106,7 @@ public class Catapult : MonoBehaviour {
     }
     void updateTarget()
     {
-        Vector3 newPos = new Vector3(0, -1.9f, maxDistance * force-6);
+        Vector3 newPos = new Vector3(-0.7f, -1.9f, maxDistance * force-6);
         targetCanvas.localPosition = newPos;
     }
     void Recharge()
@@ -112,6 +116,8 @@ public class Catapult : MonoBehaviour {
         //Destroy(rock.gameObject);
         rock = Instantiate(rockPrefab, rockSpawn.position, transform.rotation) as GameObject;
         rockScript = rock.GetComponent<ShotCat>();
+		rockSprite = rock.GetComponentInChildren<SpriteRenderer> ();
+		rockSprite.GetComponent<Animator> ().SetTrigger ("charge");
 		//parabolicMov = rock.GetComponent<TridimensionalParabolic> ();
 
         //force = 0;
@@ -122,9 +128,10 @@ public class Catapult : MonoBehaviour {
     }
     void Shoot()
     {
-		Debug.Log ("SHOOT");
         if (!rockScript.thrown && force!=0)
         {
+			rockSprite.GetComponent<Animator> ().SetTrigger ("throw");
+			rockSprite.sprite = thrownSprite;
 			chargeAmount = 0;
             rockScript.thrown = true;
             //throwScript.Shoot();

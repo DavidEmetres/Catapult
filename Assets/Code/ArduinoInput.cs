@@ -23,7 +23,7 @@ public class ArduinoInput : MonoBehaviour{
 			stream = new SerialPort (ports [0], 9600);
 
 			stream.Open ();
-			stream.ReadTimeout = 1;
+			//stream.ReadTimeout = 1;
 
 			/*if (stream.IsOpen) {
 				threadRunning = true;

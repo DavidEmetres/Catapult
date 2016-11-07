@@ -19,6 +19,7 @@ public class MenuSelection : MonoBehaviour {
 	bool button1 = false;
 	bool entering = false;
 	Transform target;
+	int option;
 
 	void Start () {
 		
@@ -65,11 +66,29 @@ public class MenuSelection : MonoBehaviour {
 			Camera.main.transform.Translate (Vector3.forward);
 
 			blackFade.color = new Vector4 (blackFade.color.r, blackFade.color.g, blackFade.color.b, blackFade.color.a + 0.025f);
+
+			if (Vector3.Distance(Camera.main.transform.position, target.position) <= 5f) {
+				switch (option) {
+					case 1:
+						Application.LoadLevel ("Nivel");
+						break;
+					case 2:
+						Application.LoadLevel ("Controls");
+						break;
+					case 3:
+						Application.LoadLevel ("Credits");
+						break;
+					case 4:
+						//Application.LoadLevel ("");
+						break;
+				}
+			}
 		}
 	}
 
 	void CheckSceneChange() {
 		if (button1Fill.fillAmount == 1f) {
+			option = 1;
 			button1Fill.enabled = false;
 			target = option1;
 			particleMotion.SetActive (true);
@@ -77,6 +96,7 @@ public class MenuSelection : MonoBehaviour {
 		}
 
 		if (button2Fill.fillAmount == 1f) {
+			option = 2;
 			button2Fill.enabled = false;
 			target = option2;
 			particleMotion.SetActive (true);
@@ -84,17 +104,19 @@ public class MenuSelection : MonoBehaviour {
 		}
 
 		if (button3Fill.fillAmount == 1f) {
+			option = 3;
 			button3Fill.enabled = false;
 			target = option3;
 			particleMotion.SetActive (true);
 			titleAnim.SetBool ("entering", true);
 		}
 
-		if (button4Fill.fillAmount == 1f) {
+		/*if (button4Fill.fillAmount == 1f) {
+			option = 4;
 			button4Fill.enabled = false;
 			target = option4;
 			particleMotion.SetActive (true);
 			titleAnim.SetBool ("entering", true);
-		}
+		}*/
 	}
 }

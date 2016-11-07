@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class EnemyManager : MonoBehaviour {
 
 	[SerializeField] GameObject enemy;
+	[SerializeField] Text scoreText;
+	[SerializeField] GameObject gameOver;
+	[SerializeField] GameObject[] livesImages;
 	float time;
 	float nextRespawnTime;
 	int counter;
 	int difficulty;
 	int score;
+	int currentScore;
+	int lives;
 
 	public float respawnDepth;
 	public float end;
@@ -24,12 +30,21 @@ public class EnemyManager : MonoBehaviour {
 		time = 0f;
 		counter = 0;
 		difficulty = 1;
+		lives = 7;
 		nextRespawnTime = time + Random.Range (minRespawnTime, maxRespawnTime);
+
+		GameObject music = GameObject.Find ("BackgroundMusic");
+		Destroy (music);
 	}
 
 	void Update () {
 		time += Time.deltaTime;
-		score = counter * 100;
+		score = counter * 50;
+
+		if (currentScore < score) {
+			currentScore++;
+			scoreText.text = currentScore.ToString();
+		}
 
 		if (time >= nextRespawnTime) {
 			RespawnEnemy ();
@@ -41,7 +56,7 @@ public class EnemyManager : MonoBehaviour {
 	}
 
 	void RespawnEnemy() {
-		Vector3 pos = new Vector3 (Random.Range (minSide, maxSide), 1f, respawnDepth);
+		Vector3 pos = new Vector3 (Random.Range (minSide, maxSide), 0.8f, respawnDepth);
 		GameObject instance = Instantiate (enemy, pos, Quaternion.identity) as GameObject;
 		Enemy e = instance.GetComponent<Enemy> ();
 		e.Initialize (this, Random.Range(speedMin, speedMax), end);
@@ -52,18 +67,18 @@ public class EnemyManager : MonoBehaviour {
 
 		switch (difficulty) {
 		case 2:
-			speedMax = 4f;
-			maxRespawnTime = 1f;
+			speedMax = 1.5f;
+			maxRespawnTime = 3.5f;
 			break;
 		case 3:
-			speedMin = 3f;
+			speedMin = 1f;
 			break;
 		case 4:
-			minRespawnTime = 0.2f;
-			maxRespawnTime = 0.7f;
+			minRespawnTime = 2.5f;
+			maxRespawnTime = 3f;
 			break;
 		case 5:
-			maxRespawnTime = 0.5f;
+			speedMax = 2f;
 			break;
 		}
 	}
@@ -87,9 +102,23 @@ public class EnemyManager : MonoBehaviour {
 		}
 	}
 
+	public void EnemyEnded() {
+		lives--;
+		Destroy (livesImages [lives].gameObject);
+
+		if (lives == 0) {
+			lives = -1;
+			StartCoroutine (GameOver());
+		}
+	}
+
+	IEnumerator GameOver() {
+		gameOver.SetActive (true);
+		yield return new WaitForSeconds (3);
+		Application.LoadLevel ("MainMenu");
+	}
+
 	void OnGUI() {
-		GUI.Label (new Rect (0, 0, 100, 100), "" + time);
-		GUI.Label (new Rect (100, 0, 100, 100), "" + score);
-		GUI.Label (new Rect (200, 0, 100, 100), "" + difficulty);
+
 	}
 }

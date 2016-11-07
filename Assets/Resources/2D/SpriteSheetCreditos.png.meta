@@ -1,0 +1,314 @@
+fileFormatVersion: 2
+guid: 83f7fdbbaf77b2e48abec97c8a4df4f5
+timeCreated: 1478191611
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: SpriteSheetCreditos_0
+    21300002: SpriteSheetCreditos_1
+    21300004: SpriteSheetCreditos_2
+    21300006: SpriteSheetCreditos_3
+    21300008: SpriteSheetCreditos_4
+    21300010: SpriteSheetCreditos_5
+    21300012: SpriteSheetCreditos_6
+    21300014: SpriteSheetCreditos_7
+    21300016: SpriteSheetCreditos_8
+    21300018: SpriteSheetCreditos_9
+    21300020: SpriteSheetCreditos_10
+    21300022: SpriteSheetCreditos_11
+    21300024: SpriteSheetCreditos_12
+    21300026: SpriteSheetCreditos_13
+    21300028: SpriteSheetCreditos_14
+    21300030: SpriteSheetCreditos_15
+    21300032: SpriteSheetCreditos_16
+    21300034: SpriteSheetCreditos_17
+    21300036: SpriteSheetCreditos_18
+    21300038: SpriteSheetCreditos_19
+    21300040: SpriteSheetCreditos_20
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_0
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 2117
+        width: 953
+        height: 738
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_1
+      rect:
+        serializedVersion: 2
+        x: 698
+        y: 2741
+        width: 34
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_2
+      rect:
+        serializedVersion: 2
+        x: 1087
+        y: 2075
+        width: 953
+        height: 738
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_4
+      rect:
+        serializedVersion: 2
+        x: 2222
+        y: 2083
+        width: 953
+        height: 738
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_5
+      rect:
+        serializedVersion: 2
+        x: 3838
+        y: 2668
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_7
+      rect:
+        serializedVersion: 2
+        x: 4963
+        y: 2642
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_9
+      rect:
+        serializedVersion: 2
+        x: 2173
+        y: 2142
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_10
+      rect:
+        serializedVersion: 2
+        x: 3214
+        y: 2024
+        width: 953
+        height: 738
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_11
+      rect:
+        serializedVersion: 2
+        x: 4331
+        y: 2010
+        width: 953
+        height: 738
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_12
+      rect:
+        serializedVersion: 2
+        x: 3117
+        y: 2116
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_13
+      rect:
+        serializedVersion: 2
+        x: 4282
+        y: 2070
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_14
+      rect:
+        serializedVersion: 2
+        x: 84
+        y: 1371
+        width: 953
+        height: 738
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_15
+      rect:
+        serializedVersion: 2
+        x: 1378
+        y: 71
+        width: 978
+        height: 1186
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_16
+      rect:
+        serializedVersion: 2
+        x: 2426
+        y: 1249
+        width: 10
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_17
+      rect:
+        serializedVersion: 2
+        x: 2481
+        y: 71
+        width: 972
+        height: 1185
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_18
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 45
+        width: 965
+        height: 1188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_19
+      rect:
+        serializedVersion: 2
+        x: 3534
+        y: 45
+        width: 975
+        height: 1188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: SpriteSheetCreditos_20
+      rect:
+        serializedVersion: 2
+        x: 711
+        y: 2965
+        width: 41
+        height: 35
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -49,8 +49,9 @@ public class TridimensionalParabolic : MonoBehaviour {
 
 		while (elapse_time < flightDuration)
 		{
-			Projectile.Translate(0, (Vy - (gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
-
+			if (Projectile != null) {
+				Projectile.Translate (0, (Vy - (gravity * elapse_time)) * Time.deltaTime, Vx * Time.deltaTime);
+			}
 			elapse_time += Time.deltaTime;
 
 			yield return null;
